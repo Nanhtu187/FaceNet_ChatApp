@@ -13,7 +13,6 @@ import org.apache.mina.filter.codec.ProtocolDecoderOutput;
 public class Decoder implements ProtocolDecoder {
     @Override
     public void decode(IoSession ioSession, IoBuffer ioBuffer, ProtocolDecoderOutput protocolDecoderOutput) throws Exception {
-        int remaining = ioBuffer.remaining();
         byte[] received = new byte[ioBuffer.remaining()];
         ioBuffer.get(received);
         String data = new String(received);
