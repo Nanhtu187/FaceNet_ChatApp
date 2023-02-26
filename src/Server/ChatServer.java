@@ -1,7 +1,7 @@
-package Server;
+package server;
 
-import Client.ChatClient;
-import Data.MessageData;
+import client.ChatClient;
+import data.MessageData;
 import org.apache.mina.core.service.IoAcceptor;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
@@ -22,7 +22,7 @@ import java.net.InetSocketAddress;
 public class ChatServer {
 
     public static Set<ChatClient> rooms = new HashSet<>();
-    private static List<String> validIP = new ArrayList<>();
+    private static Map<String, Integer> validIP = new HashMap<>();
 
     public ChatServer() throws IOException {
         IoAcceptor acceptor = new NioSocketAcceptor();
@@ -45,12 +45,19 @@ public class ChatServer {
         rooms.remove(client);
     }
 
-    public static void addValidIP(String s) {
-        validIP.add(s);
+    public static void addValidIP(String s, int count) {
+        validIP.put(s, count);
     }
 
     public static boolean checkValidIP(String s) {
-        return validIP.contains(s);
+        if(validIP.keySet().contains(s)){
+            int limit = validIP.get(s);
+            int count = 0;
+            for (ChatClient client: rooms) {
+                if(client.getAddress().equals(s)) ++ count;
+            }
+            return count < limit;
+        } else return false;
     }
 
 
@@ -77,7 +84,9 @@ public class ChatServer {
         for(int i = 1; i <= count; ++ i) {
             System.out.println("Enter valid ip: ");
             String ip = in.next();
-            ChatServer.addValidIP(ip);
+            System.out.println("Enter number of connection: ");
+            int number = in.nextInt();
+            ChatServer.addValidIP(ip, number);
         }
         ChatClient client1 = new ChatClient();
         ChatClient client2 = new ChatClient();

@@ -1,6 +1,6 @@
 package codec;
 
-import Data.MessageData;
+import data.MessageData;
 import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolEncoder;

@@ -1,7 +1,7 @@
-package Client;
+package client;
 
-import Data.MessageData;
-import Server.ChatServer;
+import data.MessageData;
+import server.ChatServer;
 import codec.ServerCodecFactory;
 import org.apache.mina.core.future.ConnectFuture;
 import org.apache.mina.core.service.IoConnector;
@@ -31,7 +31,6 @@ public class ChatClient {
         connector.setHandler(new ClientHandler());
         connector.setConnectTimeoutMillis(30);
         connector.getSessionConfig().setReadBufferSize(2048);
-        join(0);
         //connect to server
         for(;;) {
             try {
@@ -44,10 +43,13 @@ public class ChatClient {
                 System.out.println("fail to connect");
             }
         }
+        join(0);
     }
 
     public String getAddress() {
-        return session.getLocalAddress().toString();
+        String ip = session.getRemoteAddress().toString().split(":")[0];
+        ip = ip.replace("/", "");
+        return ip;
     }
 
     public IoSession getSession() {

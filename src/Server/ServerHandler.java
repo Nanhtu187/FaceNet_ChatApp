@@ -1,6 +1,6 @@
-package Server;
+package server;
 
-import Data.MessageData;
+import data.MessageData;
 import org.apache.mina.core.service.IoHandler;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
