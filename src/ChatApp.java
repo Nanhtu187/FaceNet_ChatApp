@@ -12,12 +12,19 @@ import java.util.Scanner;
 
 
 public class ChatApp {
-    private static final Scanner input = new Scanner(System.in);
+    private static final Scanner in = new Scanner(System.in);
     public static void main(String[] args) throws IOException {
         ChatServer server = new ChatServer();
+        System.out.println("Number of valid ip:");
+        int count = in.nextInt();
+        for(int i = 1; i <= count; ++ i) {
+            System.out.println("Enter valid ip: ");
+            String ip = in.next();
+            ChatServer.addValidIP(ip);
+        }
         ChatClient client1 = new ChatClient();
-        client1.join(1);
-        client1.message("Asdfasdf");
+        ChatClient client2 = new ChatClient();
+        client1.message("1234543");
     }
 
 

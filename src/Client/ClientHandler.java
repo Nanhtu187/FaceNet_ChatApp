@@ -37,7 +37,7 @@ public class ClientHandler implements IoHandler {
     @Override
     public void messageReceived(IoSession ioSession, Object o) throws Exception {
         if(o instanceof MessageData) {
-            System.out.println(((MessageData) o).toString());
+            System.out.println(o);
         }
     }
 

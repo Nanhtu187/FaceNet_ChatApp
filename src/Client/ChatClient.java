@@ -31,6 +31,7 @@ public class ChatClient {
         connector.setHandler(new ClientHandler());
         connector.setConnectTimeoutMillis(30);
         connector.getSessionConfig().setReadBufferSize(2048);
+        join(0);
         //connect to server
         for(;;) {
             try {
@@ -58,7 +59,6 @@ public class ChatClient {
     }
 
     public void join(int roomId) {
-        ChatServer.remove(this);
         this.roomId = roomId;
         ChatServer.addToRoom(this);
     }
@@ -72,7 +72,9 @@ public class ChatClient {
     }
 
     public static void main(String[] argv) {
-       ChatClient client = new ChatClient();
-       client.message("1234543");
+       ChatClient client1 = new ChatClient();
+       ChatClient client2 = new ChatClient();
+       ChatClient client3 = new ChatClient();
+       client1.message("1234543");
     }
 }

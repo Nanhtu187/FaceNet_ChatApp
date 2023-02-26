@@ -2,10 +2,8 @@ package Server;
 
 import Client.ChatClient;
 import Data.MessageData;
-import org.apache.mina.core.IoUtil;
 import org.apache.mina.core.service.IoAcceptor;
 import org.apache.mina.core.session.IdleStatus;
-import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
 import org.apache.mina.filter.logging.LoggingFilter;
 import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
@@ -23,7 +21,8 @@ import java.net.InetSocketAddress;
  */
 public class ChatServer {
 
-    private static final Set<ChatClient> rooms = new HashSet<>();
+    public static Set<ChatClient> rooms = new HashSet<>();
+    private static List<String> validIP = new ArrayList<>();
 
     public ChatServer() throws IOException {
         IoAcceptor acceptor = new NioSocketAcceptor();
@@ -46,6 +45,14 @@ public class ChatServer {
         rooms.remove(client);
     }
 
+    public static void addValidIP(String s) {
+        validIP.add(s);
+    }
+
+    public static boolean checkValidIP(String s) {
+        return validIP.contains(s);
+    }
+
 
     /**
      * sent message to all client.
@@ -53,18 +60,29 @@ public class ChatServer {
      */
 
     public static void broadcast(Object s) {
-        List<IoSession> sessions = new ArrayList<>();
         long roomId = ((MessageData)s).getRoom();
         long id = ((MessageData)s).getFrom();
         for(ChatClient client: rooms) {
             if(client.getRoomId() == roomId && client.getSession().getId() != id) {
-                sessions.add(client.getSession());
+                System.out.println(client.getSession().getId() + " received: \n" + s);
             }
         }
-        IoUtil.broadcast(s, sessions);
     }
 
     public static void main(String[] argv) throws IOException {
+        Scanner in = new Scanner(System.in);
         ChatServer server = new ChatServer();
+        System.out.println("Number of valid ip:");
+        int count = in.nextInt();
+        for(int i = 1; i <= count; ++ i) {
+            System.out.println("Enter valid ip: ");
+            String ip = in.next();
+            ChatServer.addValidIP(ip);
+        }
+        ChatClient client1 = new ChatClient();
+        ChatClient client2 = new ChatClient();
+        ChatClient client3 = new ChatClient();
+        System.out.println(rooms.size());
+        client1.message("1234543");
     }
 }

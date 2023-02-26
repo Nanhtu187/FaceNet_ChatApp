@@ -17,6 +17,13 @@ public class ServerHandler implements IoHandler {
 
     @Override
     public void sessionCreated(IoSession ioSession) throws Exception {
+        String ip = ioSession.getRemoteAddress().toString().split(":")[0];
+        ip = ip.replace("/", "");
+        if(!ChatServer.checkValidIP(ip)) {
+            System.out.println("Invalid IP");
+            ioSession.closeOnFlush();
+        }
+        ioSession.write(new MessageData(1,"welcome","message",0));
     }
 
     @Override
