@@ -1,14 +1,14 @@
-package server;
+package com.facenet.mina.data.server;
 
-import client.ChatClient;
-import data.MessageData;
+import com.facenet.mina.data.client.ChatClient;
+import com.facenet.mina.data.MessageData;
 import org.apache.mina.core.service.IoAcceptor;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
 import org.apache.mina.filter.logging.LoggingFilter;
 import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
 
-import codec.ServerCodecFactory;
+import com.facenet.mina.data.codec.ServerCodecFactory;
 
 import java.util.*;
 import java.io.IOException;
@@ -62,7 +62,7 @@ public class ChatServer {
 
 
     /**
-     * sent message to all client.
+     * sent message to all com.facenet.mina.data.client.
      * @param s message.
      */
 

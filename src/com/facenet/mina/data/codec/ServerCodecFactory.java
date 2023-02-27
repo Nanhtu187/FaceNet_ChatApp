@@ -1,4 +1,4 @@
-package codec;
+package com.facenet.mina.data.codec;
 
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolCodecFactory;

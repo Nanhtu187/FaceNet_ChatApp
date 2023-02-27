@@ -1,6 +1,6 @@
-package codec;
+package com.facenet.mina.data.codec;
 
-import data.MessageData;
+import com.facenet.mina.data.MessageData;
 import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolEncoder;

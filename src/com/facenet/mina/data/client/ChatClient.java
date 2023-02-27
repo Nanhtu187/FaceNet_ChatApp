@@ -1,8 +1,8 @@
-package client;
+package com.facenet.mina.data.client;
 
-import data.MessageData;
-import server.ChatServer;
-import codec.ServerCodecFactory;
+import com.facenet.mina.data.MessageData;
+import com.facenet.mina.data.server.ChatServer;
+import com.facenet.mina.data.codec.ServerCodecFactory;
 import org.apache.mina.core.future.ConnectFuture;
 import org.apache.mina.core.service.IoConnector;
 import org.apache.mina.core.session.IdleStatus;
@@ -31,7 +31,7 @@ public class ChatClient {
         connector.setHandler(new ClientHandler());
         connector.setConnectTimeoutMillis(30);
         connector.getSessionConfig().setReadBufferSize(2048);
-        //connect to server
+        //connect to com.facenet.mina.data.server
         for(;;) {
             try {
                 ConnectFuture future = connector.connect(new InetSocketAddress(9903));

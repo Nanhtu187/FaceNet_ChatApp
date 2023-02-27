@@ -1,4 +1,4 @@
-package data;
+package com.facenet.mina.data;
 
 import org.apache.mina.core.session.IoSession;
 
